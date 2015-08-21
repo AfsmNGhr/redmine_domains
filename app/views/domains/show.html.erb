@@ -1,0 +1,26 @@
+<h2><%= link_to l(:label_domain_plural), domains_path %> &#187; <%= link_to l(:label_domain_edit), edit_domain_path(@domain) %></h2>
+
+<div class="box">
+  <h3>
+    <% if @domain.hidden -%>
+      <%=l(:label_domain_hidden) %>
+    <% else -%>
+      <%=l(:label_domain) %>
+    <% end %>
+    #<%= @domain.id %> <%= @domain.name %>
+    <%= @domain.checked? ? l(:field_checked) : nil %>
+  </h3>
+  <p class="wiki description">
+    <%= @domain.accesses %>
+  </p>
+  <% if @domain.project.present? -%>
+    <p><%= l(:field_project) %>: <%= link_to @domain.project.name, project_path(@domain.project) %></p>
+  <% end %>
+  <p><%= l(:field_status) %>: <%= @domain.status %></p>
+  <p><%= l(:field_ending_date) %>: <%= format_date(@domain.ending_date) %></p>
+  <% @domain.custom_field_values.each do |custom_value| -%>
+    <% unless custom_value.value.blank? -%>
+      <p><%= custom_value.custom_field.name%>: <%=h show_value(custom_value) %></p>
+    <% end %>
+  <% end %>
+</div>

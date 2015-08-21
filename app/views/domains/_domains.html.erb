@@ -1,0 +1,70 @@
+<% if Domain.last -%>
+  <div class="autoscroll">
+    <table class="list domains mdl-data-table mdl-shadow--1dp">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_name) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:label_project) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_status) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_accesses) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_ending_date) %>
+          </th>
+          <% unless @custom_fields.empty? -%>
+            <% @custom_fields.each do |field| -%>
+              <th class="mdl-data-table__cell--non-numeric">
+                <%= field.name %>
+              </th>
+            <% end %>
+          <% end %>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:label_activity) %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @domains.each do |domain| %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to domain.name, domain_path(domain) %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <% if domain.project.present? -%>
+                <%= link_to domain.project.name, project_path(domain.project) %>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= domain.status %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= domain.accesses %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= format_date(domain.ending_date) %>
+            </td>
+            <% unless domain.custom_field_values.empty? -%>
+              <% domain.custom_field_values.each do |custom_value| -%>
+                <td class="mdl-data-table__cell--non-numeric">
+                  <%=h show_value(custom_value) %>
+                </td>
+              <% end %>
+            <% end %>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= hide_or_show_link(domain) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else -%>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

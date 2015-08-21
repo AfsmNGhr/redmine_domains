@@ -1,0 +1,21 @@
+ru:
+  label_domain: 'Домен'
+  label_domain_hidden: 'Скрытый домен'
+  label_domain_plural: 'Домены'
+  label_domain_hide: 'Скрыть домен'
+  label_domain_show: 'Показать домен'
+  label_domain_new: 'Добавить домен'
+  label_domain_edit: 'Редактировать домен'
+
+  tab_domain_all: 'Все'
+  tab_domain_month: 'За текущий месяц'
+  tab_domain_hidden: 'Cкрытые'
+
+  field_ending_date: 'Дата продления'
+  field_accesses: 'Доступы'
+  field_hidden: 'Скрыт'
+  field_checked: 'Подтверждён'
+
+  domain_service: 'Обслуживаем'
+  domain_self_service: 'Самообcлуживание'
+  domain_not_access: 'Нет доступа'
