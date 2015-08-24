@@ -8,6 +8,7 @@ class AddDomains < ActiveRecord::Migration
       t.boolean :hidden, default: false
       t.boolean :checked, default: false
       t.integer :project_id
+      t.integer :author_id
       t.datetime :created_at
       t.datetime :update_at
     end
