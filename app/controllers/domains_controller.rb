@@ -1,7 +1,10 @@
 class DomainsController < ApplicationController
-  before_filter :find_domain, only: [:show, :edit, :update, :hide_or_show]
+  unloadable
+  default_search_scope :domains
+  model_object Domain
+  before_filter :find_model_object, :except => [:index, :new, :create]
 
-  after_filter :only => [:create, :edit, :update, :hide_or_show] do |controller|
+  after_filter :only => [:create, :edit, :update] do |controller|
     if controller.request.post?
       controller.send :expire_action, :controller => 'welcome', :action => 'robots'
     end
@@ -47,11 +50,5 @@ class DomainsController < ApplicationController
   def hide_or_show
     @domain.update_attribute :hidden, (@domain.hidden? ? false : true)
     redirect_to domains_path
-  end
-
-  private
-
-  def find_domain
-    @domain = Domain.find(params[:id])
   end
 end

@@ -11,9 +11,15 @@ Redmine::Plugin.register :redmine_org_domains do
   author 'Ermolaev Alexsey'
   description 'Add domains for projects'
   author_url 'mailto:afay.zangetsu@gmail.com'
-  version '0.1'
+  version '0.3'
   requires_redmine version_or_higher: '3.0.0'
 
   menu :top_menu, :domains, { controller: 'domains', action: 'index' },
        caption: :label_domain_plural
+
+  activity_provider :domains, default: false, class_name: ['Domain']
+
+  Redmine::Search.map do |search|
+    search.register :domains
+  end
 end
