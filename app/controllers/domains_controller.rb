@@ -2,8 +2,7 @@ class DomainsController < ApplicationController
   unloadable
   default_search_scope :domains
   model_object Domain
-  before_filter :find_model_object, :except => [:index, :hosting, :new, :create]
-  menu_item :default
+  before_filter :find_model_object, except: [ :index, :new, :create ]
 
   after_filter :only => [:create, :edit, :update] do |controller|
     if controller.request.post?
@@ -30,20 +29,26 @@ class DomainsController < ApplicationController
 
   def create
     @domain = Domain.new(params[:domain])
-    if @domain.save
-      flash[:notice] = l(:notice_successful_create)
-      redirect_to(@domain)
-    else
-      render action: :new
+    respond_to do |format|
+      if @domain.save
+        format.html { redirect_to @domain, notice: l(:notice_successful_create) }
+        format.js
+      else
+        format.html { render action: :new }
+        format.js
+      end
     end
   end
 
   def update
-    if @domain.update_attributes(params[:domain])
-      flash[:notice] = l(:notice_successful_update)
-      redirect_to(@domain)
-    else
-      render action: :edit
+    respond_to do |format|
+      if @domain.update_attributes(params[:domain])
+        format.html { redirect_to @domain, notice: l(:notice_successful_update) }
+        format.js
+      else
+        format.html { render action: :edit }
+        format.js
+      end
     end
   end
 

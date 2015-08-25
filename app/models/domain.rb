@@ -35,23 +35,23 @@ class Domain < ActiveRecord::Base
     joins(:project).where(Domain.visible_condition(args.shift || User.current, *args)) }
 
   scope :hidden, lambda { where(hidden: true) }
-  scope :domains, lambda { where(hosting: false, hidden: false) }
-  scope :hostings, lambda { where(hosting: true, hidden: false) }
+  scope :domains, lambda { where(hosting: false) }
+  scope :hostings, lambda { where(hosting: true) }
   scope :month, lambda { where("ending_date BETWEEN ? AND ?",
                                Date.today.at_beginning_of_month,
                                (Date.today + 1.months).at_beginning_of_month) }
 
   def self.table(params)
     scope = if params[:hosting] == '1'
-              self.hostings
+              self.visible.hostings
             else
-              self.domains
+              self.visible.domains
             end
     if params[:hidden] == '1'
       if params[:hostings] == '1'
-        self.hidden.hostings
+        scope.hidden
       else
-        self.hidden.domains
+        scope.hidden
       end
     elsif params[:month] == '1'
       scope.month

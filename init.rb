@@ -17,10 +17,14 @@ Redmine::Plugin.register :redmine_org_domains do
   menu :top_menu, :domains, { controller: 'domains', action: 'index' },
        caption: :label_domain_plural
 
-  menu :domain_menu, :default, { controller: 'domains', action: 'index' },
+  menu :domain_menu, :default, { controller: 'domains', action: 'index',
+                                 params: { hosting: '0' } },
+       html: { 'data-remote' => 'true', class: 'is-active' },
        caption: :label_domain_plural, first: true
 
-  menu :domain_menu, :hosting, { controller: 'hostings', action: 'index' },
+  menu :domain_menu, :hosting, { controller: 'domains', action: 'index',
+                                 params: { hosting: '1' } },
+       html: { 'data-remote' => 'true' },
        caption: :label_hosting_plural
 
   activity_provider :domains, default: false, class_name: ['Domain']

@@ -1,6 +1,3 @@
-<h2><%= link_to l(:label_domain_plural), domains_path %> &#187; <%=l(:label_domain_edit) %></h2>
-
-<%= labelled_form_for :domain, @domain, :url => {:controller=>'domains', :action =>'update'}, :html => { :class => nil } do |f| -%>
-	<%= render :partial => 'form', :locals => { :f => f } %>
-	<p><%= submit_tag l(:button_update) %></p>
-<% end %>
+<div id="domains">
+  <%= render partial: 'edit', locals: { domain: @domain } %>
+</div>

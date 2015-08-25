@@ -16,5 +16,5 @@
   <% @domain.custom_field_values.each do |value| %>
     <p><%= custom_field_tag_with_label :domain, value %></p>
   <% end %>
-  <%= call_hook(:view_projects_form, :project => @domain, :form => f) %>
+  <%= call_hook(:view_domains_form, domain: @domain, form: f) %>
 </div>

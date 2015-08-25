@@ -1,0 +1,10 @@
+$.ajax({
+    type: "POST",
+    dataType: "script",
+    url: "<%= domain_path(@domain) %>",
+    contentType: 'application/json',
+    data: JSON.stringify({ params[:domain], _method: 'patch' })
+}).done(function ()
+        {
+            alert("<%= l(:notice_successful_update) %>");
+        });

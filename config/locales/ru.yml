@@ -7,6 +7,7 @@ ru:
   label_domain_new: 'Добавить домен'
   label_domain_edit: 'Редактировать домен'
   label_hosting: 'Хостинг'
+  label_hosting_plural: 'Хостинги'
   label_hosting_hidden: 'Cкрытый хостинг'
 
   tab_hosting_plural: 'Хостинги'
