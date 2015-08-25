@@ -45,7 +45,9 @@ class Domain < ActiveRecord::Base
     joins(:project).where(Domain.visible_condition(args.shift || User.current, *args)) }
   scope :hidden, lambda { where(hidden: true) }
   scope :domains, lambda { where(hosting: false, hidden: false) }
-  scope :month, lambda { where("MONTH(`ending_date`) = MONTH(NOW())") }
+  scope :month, lambda { where("ending_date BETWEEN ? AND ?",
+                               Date.today.at_beginning_of_month,
+                               (Date.today + 1.months).at_beginning_of_month) }
   scope :hostings, lambda { where(hosting: true, hidden: false) }
 
   def self.table(params)
