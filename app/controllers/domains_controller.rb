@@ -2,7 +2,8 @@ class DomainsController < ApplicationController
   unloadable
   default_search_scope :domains
   model_object Domain
-  before_filter :find_model_object, :except => [:index, :new, :create]
+  before_filter :find_model_object, :except => [:index, :hosting, :new, :create]
+  menu_item :default
 
   after_filter :only => [:create, :edit, :update] do |controller|
     if controller.request.post?

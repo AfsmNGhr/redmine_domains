@@ -10,8 +10,7 @@ class AddDomains < ActiveRecord::Migration
       t.integer :project_id
       t.integer :author_id
       t.integer :visibility
-      t.datetime :created_on
-      t.datetime :update_on
+      t.timestamps null: false
     end
   end
 

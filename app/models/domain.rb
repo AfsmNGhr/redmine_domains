@@ -2,22 +2,10 @@ class Domain < ActiveRecord::Base
   unloadable
   include Redmine::SafeAttributes
 
-  STATUSES = [
-    l(:domain_service),
-    l(:domain_self_service),
-    l(:domain_not_access) ]
-
-  VISIBILITY_PROJECT = 0
-  VISIBILITY_PUBLIC = 1
-  VISIBILITY_PRIVATE = 2
-
   acts_as_customizable
-  acts_as_viewable
-  acts_as_attachable view_permission: :view_domains,
-                     delete_permission: :edit_domains
-
   acts_as_activity_provider type: 'domains',
                             author_key: :author_id,
+                            timestamp: :created_at,
                             scope: joins(:project)
 
   acts_as_searchable columns: ["#{table_name}.name",
@@ -25,9 +13,9 @@ class Domain < ActiveRecord::Base
                                "#{table_name}.accesses"],
                      scope: includes(:project),
                      project_key: "#{Project.table_name}.id",
-                     date_column: 'created_on'
+                     date_column: 'created_at'
 
-  acts_as_event datetime: :created_on,
+  acts_as_event datetime: :created_at,
                 title: Proc.new {|d| "#{l(:label_domain)}: #{d.name}"},
                 url: Proc.new {|d| { controller: 'domains',
                                      action: 'show', id: d}},
@@ -35,7 +23,9 @@ class Domain < ActiveRecord::Base
                                           d.accesses, d.ending_date].
                                       join(' ')}
 
-  safe_attributes 'project_id', 'custom_field_values', 'custom_fields'
+  safe_attributes 'name', 'status', 'accesses', 'hidden', 'checked',
+                  'author_id', 'ending_date', 'hosting', 'visibility',
+                  'project_id', 'custom_field_values', 'custom_fields'
   attr_protected :id
   validates_presence_of :name
   belongs_to :project
@@ -43,30 +33,30 @@ class Domain < ActiveRecord::Base
 
   scope :visible, lambda { |*args|
     joins(:project).where(Domain.visible_condition(args.shift || User.current, *args)) }
+
   scope :hidden, lambda { where(hidden: true) }
   scope :domains, lambda { where(hosting: false, hidden: false) }
+  scope :hostings, lambda { where(hosting: true, hidden: false) }
   scope :month, lambda { where("ending_date BETWEEN ? AND ?",
                                Date.today.at_beginning_of_month,
                                (Date.today + 1.months).at_beginning_of_month) }
-  scope :hostings, lambda { where(hosting: true, hidden: false) }
 
   def self.table(params)
-    if params[:hosting] == '1'
-      if params[:hidden] == '1'
-        self.hostings.hidden
-      elsif params[:month] == '1'
-        self.hostings.month
+    scope = if params[:hosting] == '1'
+              self.hostings
+            else
+              self.domains
+            end
+    if params[:hidden] == '1'
+      if params[:hostings] == '1'
+        self.hidden.hostings
       else
-        self.hostings
+        self.hidden.domains
       end
+    elsif params[:month] == '1'
+      scope.month
     else
-      if params[:hidden] == '1'
-        self.domains.hidden
-      elsif params[:month] == '1'
-        self.domains.month
-      else
-        self.domains
-      end
+      scope
     end
   end
 

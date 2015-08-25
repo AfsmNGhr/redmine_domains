@@ -11,11 +11,17 @@ module DomainsHelper
             hide_or_show_domain_path(domain), remote: true
   end
 
-  def title_domain(domain)
+  def domain_title(domain)
     if domain.hosting
       domain.hidden? ? l(:label_hosting_hidden) : l(:label_hosting)
     else
       domain.hidden? ? l(:label_domain_hidden) : l(:label_domain)
     end
+  end
+
+  def statuses
+    [ l(:domain_service),
+      l(:domain_self_service),
+      l(:domain_not_access) ]
   end
 end
