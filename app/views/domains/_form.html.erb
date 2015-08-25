@@ -11,6 +11,7 @@
   <p><%= f.text_field(:ending_date, :size => 10, :required => @domain.ending_date) %>
     <%= calendar_for('domain_ending_date') %>
   </p>
+  <p><%= f.hidden_field :author_id, { value: User.current.id } %></p>
   <% @domain.custom_field_values.each do |value| %>
     <p><%= custom_field_tag_with_label :domain, value %></p>
   <% end %>

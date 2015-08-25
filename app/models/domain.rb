@@ -2,6 +2,11 @@ class Domain < ActiveRecord::Base
   unloadable
   include Redmine::SafeAttributes
 
+  STATUSES = [
+    l(:domain_service),
+    l(:domain_self_service),
+    l(:domain_not_access) ]
+
   acts_as_customizable
   acts_as_activity_provider type: 'domains',
                             author_key: :author_id
@@ -21,7 +26,9 @@ class Domain < ActiveRecord::Base
                                           d.accesses, d.ending_date].
                                       join(' ')}
 
-  safe_attributes 'project_id', 'custom_field_values', 'custom_fields'
+  safe_attributes 'name', 'status', 'ending_date', 'accesses',
+                  'hidden', 'checked', 'author_id', 'project_id',
+                  'custom_field_values', 'custom_fields'
   attr_protected :id
   validates_presence_of :name
   belongs_to :project
@@ -30,11 +37,6 @@ class Domain < ActiveRecord::Base
   scope :visible, lambda { where(hidden: false) }
   scope :hidden, lambda { where(hidden: true) }
   scope :month, lambda { where("MONTH(`ending_date`) = MONTH(NOW())") }
-
-  STATUSES = [
-    l(:domain_service),
-    l(:domain_self_service),
-    l(:domain_not_access) ]
 
   def self.table(params)
     if params[:hidden] == '1'

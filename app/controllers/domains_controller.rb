@@ -11,7 +11,6 @@ class DomainsController < ApplicationController
   end
 
   helper :custom_fields
-  helper :queries
 
   def index
     @domains = Domain.table(params)
