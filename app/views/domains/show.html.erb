@@ -2,11 +2,7 @@
 
 <div class="box">
   <h3>
-    <% if @domain.hidden -%>
-      <%=l(:label_domain_hidden) %>
-    <% else -%>
-      <%=l(:label_domain) %>
-    <% end %>
+    <%= title_domain(@domain) %>
     #<%= @domain.id %> <%= @domain.name %>
     <%= @domain.checked? ? l(:field_checked) : nil %>
   </h3>
