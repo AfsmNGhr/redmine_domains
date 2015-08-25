@@ -35,7 +35,9 @@ class Domain < ActiveRecord::Base
                                           d.accesses, d.ending_date].
                                       join(' ')}
 
-  safe_attributes 'project_id', 'custom_field_values', 'custom_fields'
+  safe_attributes 'name', 'status', 'ending_date', 'accesses',
+                  'hidden', 'checked', 'author_id', 'project_id',
+                  'custom_field_values', 'custom_fields'
   attr_protected :id
   validates_presence_of :name
   belongs_to :project
