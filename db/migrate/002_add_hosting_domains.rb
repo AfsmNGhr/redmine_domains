@@ -1,4 +1,4 @@
-class AddHostDomains < ActiveRecord::Migration
+class AddHostingDomains < ActiveRecord::Migration
   def self.up
     add_column :domains, :hosting, :boolean, default: false
   end

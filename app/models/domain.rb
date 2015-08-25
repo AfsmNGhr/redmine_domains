@@ -44,17 +44,19 @@ class Domain < ActiveRecord::Base
   scope :visible, lambda { |*args|
     joins(:project).where(Domain.visible_condition(args.shift || User.current, *args)) }
   scope :hidden, lambda { where(hidden: true) }
-  scope :domains, lambda { where(host: false, hidden: false) }
+  scope :domains, lambda { where(hosting: false, hidden: false) }
   scope :month, lambda { where("MONTH(`ending_date`) = MONTH(NOW())") }
-  scope :hosts, lambda { where(host: true, hidden: false) }
+  scope :hostings, lambda { where(hosting: true, hidden: false) }
 
   def self.table(params)
     if params[:hidden] == '1'
       self.hidden
     elsif params[:hosting] == '1'
-      self.hosts
+      self.hostings
+    elsif params[:month] == '1'
+      self.month
     else
-      params[:month].eql?('1') ? self.month : self.domains
+      self.domains
     end
   end
 

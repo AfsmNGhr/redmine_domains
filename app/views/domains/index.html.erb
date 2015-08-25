@@ -2,10 +2,9 @@
   <%= link_to l(:label_domain_new), { controller: 'domains', action: 'new' }, class: 'icon icon-add' %>
 </div>
 
-<h2><%=l(:label_domain_plural)%> |
+<h2><%= link_to l(:label_domain_plural), params.merge({hidden: '0', month: '0', hosting: '0'}), remote: true %> |
   <%= link_to l(:tab_hosting_plural), params.merge({hidden: '0', month: '0', hosting: '1'}), remote: true %> |
-  <%= link_to l(:tab_domain_all), params.merge({hidden: '0', month: '0'}), remote: true %> |
-  <%= link_to l(:tab_domain_month), params.merge({month: '1'}), remote: true %> |
+  <%= link_to l(:tab_domain_month), params.merge({month: '1', hidden: '0'}), remote: true %> |
   <%= link_to l(:tab_domain_hidden), params.merge({hidden: '1'}), remote: true %>
 </h2>
 
