@@ -6,6 +6,7 @@
   <p><%= f.select :project_id, options_from_collection_for_select(Project.visible, :id, :name, f.object.project_id),
 { :include_blank => true, :label => :label_project } %></p>
   <p><%= f.select :status, Domain::STATUSES, { :label => :field_status } %></p>
+  <p><%= f.check_box :hosting, class: "mdl-checkbox__input" %></p>
   <p><%= f.check_box :hidden, class: "mdl-checkbox__input" %></p>
   <p><%= f.check_box :checked, class: "mdl-checkbox__input" %></p>
   <p><%= f.text_field(:ending_date, :size => 10, :required => @domain.ending_date) %>

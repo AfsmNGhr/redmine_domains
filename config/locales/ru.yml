@@ -6,11 +6,15 @@ ru:
   label_domain_show: 'Показать домен'
   label_domain_new: 'Добавить домен'
   label_domain_edit: 'Редактировать домен'
+  label_hosting: 'Хостинг'
+  label_hosting_hidden: 'Cкрытый хостинг'
 
+  tab_hosting_plural: 'Хостинги'
   tab_domain_all: 'Все'
   tab_domain_month: 'За текущий месяц'
   tab_domain_hidden: 'Cкрытые'
 
+  field_hosting: 'Хостинг'
   field_ending_date: 'Дата продления'
   field_accesses: 'Доступы'
   field_hidden: 'Скрыт'
