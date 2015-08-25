@@ -35,9 +35,7 @@ class Domain < ActiveRecord::Base
                                           d.accesses, d.ending_date].
                                       join(' ')}
 
-  safe_attributes 'name', 'status', 'ending_date', 'accesses',
-                  'hidden', 'checked', 'author_id', 'project_id',
-                  'custom_field_values', 'custom_fields'
+  safe_attributes 'project_id', 'custom_field_values', 'custom_fields'
   attr_protected :id
   validates_presence_of :name
   belongs_to :project
@@ -51,14 +49,22 @@ class Domain < ActiveRecord::Base
   scope :hostings, lambda { where(hosting: true, hidden: false) }
 
   def self.table(params)
-    if params[:hidden] == '1'
-      self.hidden
-    elsif params[:hosting] == '1'
-      self.hostings
-    elsif params[:month] == '1'
-      self.month
+    if params[:hosting] == '1'
+      if params[:hidden] == '1'
+        self.hostings.hidden
+      elsif params[:month] == '1'
+        self.hostings.month
+      else
+        self.hostings
+      end
     else
-      self.domains
+      if params[:hidden] == '1'
+        self.domains.hidden
+      elsif params[:month] == '1'
+        self.domains.month
+      else
+        self.domains
+      end
     end
   end
 
