@@ -1,11 +1,14 @@
 <h2>
-  <% if @domain.hosting -%>
+  <% if params[:hosting] -%>
     <%= link_to l(:label_hosting_plural), { controller: 'domains', action: 'index', params: { hosting: '1' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
+  <% else -%>
+    <%= link_to l(:label_domain_plural), { controller: 'domains', action: 'index', params: { hosting: '0' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
+  <% end %>
+  <% if @domain.hosting %>
     <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--deep-orange-A200 mdl-js-ripple-effect'>
       <%= l(:label_hosting_edit) %>
     </button>
   <% else -%>
-    <%= link_to l(:label_domain_plural), { controller: 'domains', action: 'index', params: { hosting: '0' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
     <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--deep-orange-A200 mdl-js-ripple-effect'>
       <%= l(:label_domain_edit) %>
     </button>
