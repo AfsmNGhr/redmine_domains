@@ -1,8 +1,10 @@
 RedmineApp::Application.routes.draw do
   resources :domains do
-    get 'context_menu'
+    collection do
+      get :context_menu
+    end
     member do
-      get 'hide_or_show'
+      get :hide_or_show
     end
   end
 end

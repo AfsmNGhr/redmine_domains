@@ -1,7 +1,7 @@
 <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect">
   <% unless @domain.nil? %>
     <li class="mdl-menu__item mdl-js-ripple-effect">
-      <%= context_menu_link %>
+    <li><%= context_menu_link l(:button_edit), { controller: 'domains', action: 'edit', id: @domain, params: params }, class: 'icon-edit' %></li>
     </li>
   <% end %>
 </ul>

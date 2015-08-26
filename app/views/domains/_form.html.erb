@@ -1,21 +1,21 @@
 <%= error_messages_for 'domain' %>
 
 <div class="box tabular">
-  <p><%= f.text_field :name, :required => true, class: "mdl-textfield__input mdl-textfield mdl-js-textfield" %></p>
-  <p><%= f.text_area :accesses, :size => "40x3", class: "mdl-textfield__input mdl-textfield mdl-js-textfield" %></p>
-  <p><%= f.select :project_id, options_from_collection_for_select(Project.visible, :id, :name, f.object.project_id),
-{ :include_blank => true, :label => :label_project } %></p>
-  <p><%= f.select :status, statuses, { :label => :field_status } %></p>
+  <p><%= f.text_field :name, :required => true, class: "mdl-textfield__input" %></p>
+  <p><%= f.text_area :accesses, :size => "40x3", class: "mdl-textfield__input" %></p>
+  <p><%= f.select :project_id, options_from_collection_for_select(Project.visible, :id, :name, @domain.project_id),
+{ include_blank:  true, label: :label_project } %></p>
+  <p><%= f.select :status, statuses, { label: :field_status } %></p>
   <p>
     <% if params[:hosting] == '1' -%>
-      <%= f.check_box :hosting, class: "mdl-checkbox__input", checked: true %>
+      <%= f.check_box :hosting, checked: true %>
     <% else -%>
-      <%= f.check_box :hosting, class: "mdl-checkbox__input" %>
+      <%= f.check_box :hosting %>
     <% end %>
   </p>
-  <p><%= f.check_box :hidden, class: "mdl-checkbox__input" %></p>
-  <p><%= f.check_box :checked, class: "mdl-checkbox__input" %></p>
-  <p><%= f.text_field(:ending_date, :size => 10, :required => @domain.ending_date) %>
+  <p><%= f.check_box :hidden %></p>
+  <p><%= f.check_box :checked %></p>
+  <p><%= f.text_field(:ending_date, size: 10, required: @domain.ending_date) %>
     <%= calendar_for('domain_ending_date') %>
   </p>
   <p><%= f.hidden_field :author_id, { value: User.current.id } %></p>

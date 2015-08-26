@@ -60,6 +60,7 @@ class DomainsController < ApplicationController
   def context_menu
     @domains = Domain.visible.where(id: params[:selected_domains])
     @domain = @domains.first if @domains.size == 1
+    render layout: false
   end
 
   def hide_or_show
