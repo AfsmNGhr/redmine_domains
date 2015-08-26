@@ -1,11 +1,14 @@
 <h2>
   <% if params[:hosting] == '1' -%>
-    <%= link_to l(:label_hosting_plural), { controller: 'domains', action: 'index', params: { hosting: '1' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
-    <%= link_to l(:label_hosting_edit), { controller: 'domains', action: 'edit', id: @domain, params: { hosting: '1' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--indigo-400 mdl-js-ripple-effect' %>
+    <%= link_to l(:label_hosting_plural), { controller: 'domains', action: 'index', params: { hosting: params[:hosting] } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
   <% else -%>
-    <%= link_to l(:label_domain_plural), { controller: 'domains', action: 'index', params: { hosting: '0' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
-    <%= link_to l(:label_domain_edit), { controller: 'domains', action: 'edit', id: @domain, params: { hosting: '0' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--indigo-400 mdl-js-ripple-effect' %>
-<% end %>
+    <%= link_to l(:label_domain_plural), { controller: 'domains', action: 'index', params: { hosting: params[:hosting] } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
+  <% end %>
+  <% if @domain.hosting -%>
+    <%= link_to l(:label_hosting_edit), { controller: 'domains', action: 'edit', id: @domain, params: { hosting: params[:hosting] } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--indigo-400 mdl-js-ripple-effect' %>
+  <% else -%>
+    <%= link_to l(:label_domain_edit), { controller: 'domains', action: 'edit', id: @domain, params: { hosting: params[:hosting] } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--indigo-400 mdl-js-ripple-effect' %>
+  <% end %>
 </h2>
 
 <div class="box">

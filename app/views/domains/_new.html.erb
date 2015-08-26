@@ -12,7 +12,7 @@
   <% end %>
 </h2>
 
-<%= labelled_form_for :domain, @domain, url: { controller: 'domains', action: 'create' }, html: { class: nil, 'data-remote' => 'true' } do |f| -%>
+<%= labelled_form_for :domain, @domain, url: { controller: 'domains', action: 'create', params: { hosting: params[:hosting] } }, html: { class: nil, 'data-remote' => 'true' } do |f| -%>
 	<%= render partial: 'form', locals: { f: f, params: params } %>
 	<h2><%= submit_tag l(:button_create), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--pink-A200 mdl-js-ripple-effect mdl-color-text--white' %></h2>
 <% end -%>

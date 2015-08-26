@@ -1,5 +1,5 @@
 <h2>
-  <% if params[:hosting] == '1' -%>
+  <% if @domain.hosting -%>
     <%= link_to l(:label_hosting_plural), { controller: 'domains', action: 'index', params: { hosting: '1' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
     <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--deep-orange-A200 mdl-js-ripple-effect'>
       <%= l(:label_hosting_edit) %>
@@ -12,7 +12,7 @@
   <% end %>
 </h2>
 
-<%= labelled_form_for :domain, @domain, url: { controller: 'domains', action: 'update' }, html: { class: nil, 'data-remote' => 'true' } do |f| -%>
+<%= labelled_form_for :domain, @domain, url: { controller: 'domains', action: 'update', params: { hosting: params[:hosting] } }, html: { class: nil, 'data-remote' => 'true' } do |f| -%>
 	<%= render partial: 'form', locals: { f: f } %>
 	<h2><%= submit_tag l(:button_update), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--pink-A200 mdl-js-ripple-effect mdl-color-text--white' %></h2>
 <% end %>

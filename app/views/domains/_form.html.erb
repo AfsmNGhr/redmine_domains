@@ -7,7 +7,7 @@
 { include_blank:  true, label: :label_project } %></p>
   <p><%= f.select :status, statuses, { label: :field_status } %></p>
   <p>
-    <% if params[:hosting] == '1' -%>
+    <% if params[:hosting] == '1' && @domain.new_record? -%>
       <%= f.check_box :hosting, checked: true %>
     <% else -%>
       <%= f.check_box :hosting %>
