@@ -2,7 +2,7 @@ class DomainsController < ApplicationController
   unloadable
   default_search_scope :domains
   model_object Domain
-  before_filter :find_model_object, except: [ :index, :new, :create ]
+  before_filter :find_model_object, except: [ :index, :new, :create, :context_menu ]
 
   after_filter :only => [:create, :edit, :update] do |controller|
     if controller.request.post?
@@ -31,8 +31,10 @@ class DomainsController < ApplicationController
     @domain = Domain.new(params[:domain])
     respond_to do |format|
       if @domain.save
-        format.html { redirect_to @domain, notice: l(:notice_successful_create) }
-        format.js
+        format.html { redirect_to @domain,
+                      notice: l(:notice_successful_create) }
+        format.js { render action: :show, format: :js,
+                           notice: l(:notice_successful_create) }
       else
         format.html { render action: :new }
         format.js
@@ -43,13 +45,21 @@ class DomainsController < ApplicationController
   def update
     respond_to do |format|
       if @domain.update_attributes(params[:domain])
-        format.html { redirect_to @domain, notice: l(:notice_successful_update) }
-        format.js
+        flash.now[:notice] = l(:notice_successful_update)
+        format.html { redirect_to @domain,
+                      notice: l(:notice_successful_update) }
+        format.js { render action: :show, format: :js,
+                           notice: l(:notice_successful_update) }
       else
         format.html { render action: :edit }
         format.js
       end
     end
+  end
+
+  def context_menu
+    @domains = Domain.visible.where(id: params[:selected_domains])
+    @domain = @domains.first if @domains.size == 1
   end
 
   def hide_or_show

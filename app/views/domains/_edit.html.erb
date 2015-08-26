@@ -1,4 +1,10 @@
-<h2><%= link_to l(:label_domain_plural), domains_path, remote: true %> &#187; <%=l(:label_domain_edit) %></h2>
+<h2>
+  <% if params[:hosting] == '1' -%>
+    <%= link_to l(:label_hosting_plural), { controller: 'domains', action: 'index', params: { hosting: '1' } }, remote: true %> &#187; <%=l(:label_hosting_edit) %>
+  <% else -%>
+    <%= link_to l(:label_domain_plural), { controller: 'domains', action: 'index', params: { hosting: '0' } }, remote: true %> &#187; <%=l(:label_domain_edit) %>
+  <% end %>
+</h2>
 
 <%= labelled_form_for :domain, @domain, url: { controller: 'domains', action: 'update' }, html: { class: nil, 'data-remote' => 'true' } do |f| -%>
 	<%= render partial: 'form', locals: { f: f } %>

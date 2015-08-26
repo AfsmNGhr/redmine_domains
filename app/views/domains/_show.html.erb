@@ -1,5 +1,12 @@
-<h2><%= link_to l(:label_domain_plural), domains_path, remote: true %> &#187;
-  <%= link_to l(:label_domain_edit), edit_domain_path(@domain), remote: true %></h2>
+<h2>
+  <% if params[:hosting] == '1' -%>
+    <%= link_to l(:label_hosting_plural), { controller: 'domains', action: 'index', params: { hosting: '1' } }, remote: true %> &#187;
+    <%= link_to l(:label_hosting_edit), { controller: 'domains', action: 'edit', id: @domain, params: { hosting: '1' } }, remote: true %>
+  <% else -%>
+    <%= link_to l(:label_domain_plural), { controller: 'domains', action: 'index', params: { hosting: '0' } }, remote: true %> &#187;
+    <%= link_to l(:label_domain_edit), { controller: 'domains', action: 'edit', id: @domain, params: { hosting: '0' } }, remote: true %>
+<% end %>
+</h2>
 
 <div class="box">
   <h3>

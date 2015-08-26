@@ -6,6 +6,11 @@ ru:
   label_domain_show: 'Показать домен'
   label_domain_new: 'Добавить домен'
   label_domain_edit: 'Редактировать домен'
+
+  label_hosting_hide: 'Скрыть хостинг'
+  label_hosting_show: 'Показать хостинг'
+  label_hosting_new: 'Добавить хостинг'
+  label_hosting_edit: 'Редактировать хостинг'
   label_hosting: 'Хостинг'
   label_hosting_plural: 'Хостинги'
   label_hosting_hidden: 'Cкрытый хостинг'
