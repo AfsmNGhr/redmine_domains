@@ -1,0 +1,11 @@
+<h2>
+  <%= link_to l(:label_access_plural), project_accesses_path(Project.find(params[:project_id])), remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
+  <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--purple-400 mdl-js-ripple-effect'>
+    <%=l(:label_access_new) %>
+  </button>
+</h2>
+
+<%= labelled_form_for :access, @access, url: { controller: 'accesses', action: 'create', params: params }, html: { class: nil, 'data-remote' => 'true' } do |f| -%>
+	<%= render partial: 'form', locals: { f: f, params: params } %>
+	<h2><%= submit_tag l(:button_create), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %></h2>
+<% end -%>

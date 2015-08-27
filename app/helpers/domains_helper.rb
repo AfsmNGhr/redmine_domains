@@ -1,4 +1,9 @@
 module DomainsHelper
+  def settings_domains_tabs
+    [ { name: 'accesses', partial: 'settings/domains/accesses',
+        label: :label_access_plural } ]
+  end
+
   def hide_or_show_link(domain)
     icon, id, label =
               if domain.hidden

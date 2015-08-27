@@ -15,11 +15,28 @@ ru:
   label_hosting_plural: 'Хостинги'
   label_hosting_hidden: 'Cкрытый хостинг'
 
-  tab_hosting_plural: 'Хостинги'
+  label_access_new: 'Добавить доступ'
+  label_access_edit: 'Редактировать доступ'
+  label_access_plural: 'Доступы'
+
+  label_accesses_names: 'Наименование доступов'
+  label_accesses_keys: 'Ключи доступов'
+
   tab_domain_all: 'Все'
   tab_domain_month: 'За текущий месяц'
   tab_domain_hidden: 'Cкрытые'
 
+  project_module_accesses: 'Доступы'
+
+  permission_view_accesses: 'Просмотр доступов'
+  permission_add_accesses: 'Добавление доступов'
+  permission_edit_accesses: 'Редактирование доступов'
+  permission_view_domains: 'Просмотр доменов'
+  permission_add_domains: 'Добавление доменов'
+  permission_edit_domains: 'Редактирование доменов'
+  permission_manage_accesses: 'Управление доступами'
+
+  field_access: 'Доступ'
   field_hosting: 'Хостинг'
   field_ending_date: 'Дата продления'
   field_accesses: 'Доступы'

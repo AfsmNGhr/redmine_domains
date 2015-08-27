@@ -1,0 +1,7 @@
+$.ajax({
+    type: "POST",
+    dataType: "script",
+    url: "<%= access_path(@access) %>",
+    contentType: 'application/json',
+    data: JSON.stringify({ params[:access], _method: 'patch' })
+})

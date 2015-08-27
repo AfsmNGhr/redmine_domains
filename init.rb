@@ -1,18 +1,49 @@
+# coding: utf-8
 require 'redmine'
 
 ActionDispatch::Callbacks.to_prepare do
-  require_dependency 'redmine_org_domains/patches/project_patch'
-  require_dependency 'redmine_org_domains/patches/custom_field_helper_patch'
-  ActionView::Base.send(:include, DomainsHelper)
+  require_dependency 'redmine_domains/patches/project_patch'
+  require_dependency 'redmine_domains/patches/custom_field_helper_patch'
+  ActionView::Base.send(:include, DomainsHelper, AccessesHelper)
 end
 
-Redmine::Plugin.register :redmine_org_domains do
-  name 'Redmine Org Domains'
+Redmine::Plugin.register :redmine_domains do
+  name 'Redmine Domains'
   author 'Ermolaev Alexsey'
-  description 'Add domains for projects'
-  author_url 'mailto:afay.zangetsu@gmail.com'
-  version '0.3'
+  description 'Add domains and their accesses for projects'
+  author_url 'afay.zangetsu@gmail.com'
+  version '0.5'
   requires_redmine version_or_higher: '3.0.0'
+
+  settings default: { accesses_names: [ 'Админка CMS',
+                                        'Админка хоста',
+                                        'FTP хост',
+                                        'SSH хост',
+                                        'Mysql хост',
+                                        'Live Internet' ],
+                      accesses_keys: [ 'cms', 'host',
+                                       'ftp', 'ssh',
+                                       'mysql',
+                                       'live_internet' ],
+                    }, partial: 'settings/domains/domains'
+
+  project_module :accesses do
+    permission :view_accesses, { accesses: [ :index, :show ] }
+    permission :add_accesses, { accesses: [ :new, :create ] }
+    permission :edit_accesses, { accesses: [ :edit, :update ] }
+    permission :manage_accesses, { projects: :settings,
+                                   accesses_settings: :save }
+    permission :view_domains, { domains: [ :index, :show ] }
+    permission :add_domains, { domains: [ :new, :create ] }
+    permission :edit_domains, { domains: [ :edit, :update ] }
+  end
+
+  menu :admin_menu, :domains, { controller: 'settings', action: 'plugin',
+                                    id: 'redmine_domains' },
+       caption: :label_domain_plural, after: :roles
+
+  menu :project_menu, :accesses, { controller: 'accesses', action: 'index'},
+       caption: :label_access_plural, html: { 'data-remote' => 'true' }
 
   menu :top_menu, :domains, { controller: 'domains', action: 'index' },
        caption: :label_domain_plural

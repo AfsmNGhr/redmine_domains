@@ -1,9 +1,9 @@
-class DomainsController < ApplicationController
+class AccessesController < ApplicationController
   unloadable
-  default_search_scope :domains
-  model_object Domain
-  before_filter :find_model_object,
-                except: [ :index, :new, :create, :context_menu ]
+  default_search_scope :accesses
+  model_object Access
+  before_filter :find_model_object, except: [ :index, :new, :create ]
+  before_filter :find_project, only: :index
 
   after_filter only: [:create, :edit, :update] do |controller|
     if controller.request.post?
@@ -11,29 +11,25 @@ class DomainsController < ApplicationController
     end
   end
 
-  helper :custom_fields
-
   def index
-    @domains = Domain.table(params)
-    @custom_fields = DomainCustomField.all
+    @accesses = @project.accesses
   end
 
   def show
-    @accesses = @domain.accesses
   end
 
   def new
-    @domain = Domain.new
+    @access = Access.new
   end
 
   def edit
   end
 
   def create
-    @domain = Domain.new(params[:domain])
+    @access = Access.new(params[:access])
     respond_to do |format|
-      if @domain.save
-        format.html { redirect_to @domain,
+      if @access.save
+        format.html { redirect_to @access,
                       notice: l(:notice_successful_create) }
         format.js { render action: :show, format: :js,
                            notice: l(:notice_successful_create) }
@@ -46,8 +42,8 @@ class DomainsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @domain.update_attributes(params[:domain])
-        format.html { redirect_to @domain,
+      if @access.update_attributes(params[:access])
+        format.html { redirect_to @access,
                       notice: l(:notice_successful_update) }
         format.js { render action: :show, format: :js,
                            notice: l(:notice_successful_update) }
@@ -56,16 +52,5 @@ class DomainsController < ApplicationController
         format.js
       end
     end
-  end
-
-  def context_menu
-    @domains = Domain.visible.where(id: params[:selected_domains])
-    @domain = @domains.first if @domains.size == 1
-    render layout: false
-  end
-
-  def hide_or_show
-    @domain.update_attribute :hidden, (@domain.hidden? ? false : true)
-    redirect_to domains_path
   end
 end

@@ -1,0 +1,17 @@
+<h2>
+  <%= link_to l(:label_access_plural), project_accesses_path(@access.project), remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
+  <%= link_to l(:label_access_edit), { controller: 'accesses', action: 'edit', id: @access }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--indigo-400 mdl-js-ripple-effect' %>
+</h2>
+
+<div class="box">
+  <h3><%= @access.name %></h3>
+  <p class="wiki description">
+    <%= @access.description %>
+  </p>
+  <% if @access.domain -%>
+    <p><%= link_to @access.domain.name, domain_path(@access.domain) %></p>
+  <% end %>
+  <p><%= l(:field_url) %>: <%= @access.url %></p>
+  <p><%= l(:field_login) %>: <%= @access.login %></p>
+  <p><%= l(:field_password) %>: <%= @access.password %></p>
+</div>

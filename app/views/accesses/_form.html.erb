@@ -1,0 +1,11 @@
+<%= error_messages_for 'access' %>
+
+<div class="box">
+</p><%= f.text_field :name, required: true, class: "mdl-textfield__input" %></p>
+  <p><%= f.select :domain_id, options_from_collection_for_select(Domain.visible, :id, :name, @access.domain_id),
+{ include_blank: true, label: :label_domain } %></p>
+  <p><%= f.text_field :url, class: "mdl-textfield__input" %></p>
+  <p><%= f.text_field :login, class: "mdl-textfield__input" %></p>
+  <p><%= f.text_field :password, class: "mdl-textfield__input" %></p>
+  <p><%= f.text_area :description, class: "mdl-textfield__input" %></p>
+</div>

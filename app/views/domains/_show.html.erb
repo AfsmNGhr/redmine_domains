@@ -17,9 +17,6 @@
     #<%= @domain.id %> <%= @domain.name %>
     <%= @domain.checked? ? l(:field_checked) : nil %>
   </h3>
-  <p class="wiki description">
-    <%= l(:field_accesses) %>: <%= @domain.accesses %>
-  </p>
   <% if @domain.project.present? -%>
     <p><%= l(:field_project) %>: <%= link_to @domain.project.name, project_path(@domain.project) %></p>
   <% end %>
@@ -31,3 +28,7 @@
     <% end %>
   <% end %>
 </div>
+
+<% unless @accesses.nil? || @accesses.empty? %>
+  <%= render partial: 'accesses/accesses' %>
+<% end %>

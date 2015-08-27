@@ -1,8 +1,7 @@
 <%= error_messages_for 'domain' %>
 
-<div class="box tabular">
+<div class="box">
   <p><%= f.text_field :name, :required => true, class: "mdl-textfield__input" %></p>
-  <p><%= f.text_area :accesses, :size => "40x3", class: "mdl-textfield__input" %></p>
   <p><%= f.select :project_id, options_from_collection_for_select(Project.visible, :id, :name, @domain.project_id),
 { include_blank:  true, label: :label_project } %></p>
   <p><%= f.select :status, statuses, { label: :field_status } %></p>

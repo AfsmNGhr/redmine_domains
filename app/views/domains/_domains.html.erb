@@ -68,7 +68,13 @@ id: domain, params: { hosting: params[:hosting] } }, remote: true %>
               <%= domain.status %>
             </td>
             <td class="mdl-data-table__cell--non-numeric">
-              <%= domain.accesses %>
+              <% unless domain.accesses.empty? -%>
+                <% if domain.project -%>
+                  <%= link_to domain.accesses.map(&:key).join(','), project_accesses_path(domain.project), remote: true %>
+                <% else -%>
+                  <%= link_to domain.accesses.map(&:key).join(','), domain_path(domain), remote: true %>
+                <% end %>
+              <% end %>
             </td>
             <td class="mdl-data-table__cell--non-numeric">
               <%= format_date(domain.ending_date) %>

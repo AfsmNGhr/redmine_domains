@@ -29,6 +29,7 @@ class Domain < ActiveRecord::Base
   attr_protected :id
   validates_presence_of :name
   belongs_to :project
+  has_many :accesses, dependent: :destroy
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
   scope :visible, lambda { |*args|
