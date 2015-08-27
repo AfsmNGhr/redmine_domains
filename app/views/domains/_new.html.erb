@@ -1,12 +1,12 @@
 <h2>
   <% if params[:hosting] == '1' -%>
     <%= link_to l(:label_hosting_plural), { controller: 'domains', action: 'index', params: { hosting: '1' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
-    <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--deep-orange-A200 mdl-js-ripple-effect'>
+    <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--purple-400 mdl-js-ripple-effect'>
       <%=l(:label_hosting_new) %>
     </button>
   <% else -%>
     <%= link_to l(:label_domain_plural), { controller: 'domains', action: 'index', params: { hosting: '0' } }, remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
-    <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--deep-orange-A200 mdl-js-ripple-effect'>
+    <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--purple-400 mdl-js-ripple-effect'>
       <%=l(:label_domain_new) %>
     </button>
   <% end %>
@@ -14,5 +14,5 @@
 
 <%= labelled_form_for :domain, @domain, url: { controller: 'domains', action: 'create', params: { hosting: params[:hosting] } }, html: { class: nil, 'data-remote' => 'true' } do |f| -%>
 	<%= render partial: 'form', locals: { f: f, params: params } %>
-	<h2><%= submit_tag l(:button_create), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--pink-A200 mdl-js-ripple-effect mdl-color-text--white' %></h2>
+	<h2><%= submit_tag l(:button_create), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %></h2>
 <% end -%>
