@@ -3,7 +3,6 @@ require 'redmine'
 ActionDispatch::Callbacks.to_prepare do
   require_dependency 'redmine_org_domains/patches/project_patch'
   require_dependency 'redmine_org_domains/patches/custom_field_helper_patch'
-  require_dependency 'redmine_org_domains/patches/application_helper_patch'
   ActionView::Base.send(:include, DomainsHelper)
 end
 
