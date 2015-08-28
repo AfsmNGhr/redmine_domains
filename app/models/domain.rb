@@ -10,8 +10,14 @@ class Domain < ActiveRecord::Base
 
   acts_as_searchable columns: ["#{table_name}.name",
                                "#{table_name}.status",
-                               "#{table_name}.accesses"],
-                     scope: includes(:project),
+                               "#{table_name}.ending_date",
+                               "#{Access.table_name}.name",
+                               "#{Access.table_name}.key",
+                               "#{Access.table_name}.url",
+                               "#{Access.table_name}.login",
+                               "#{Access.table_name}.password",
+                               "#{Access.table_name}.description"],
+                     scope: includes(:project, :accesses),
                      project_key: "#{Project.table_name}.id",
                      date_column: 'created_at'
 
@@ -20,7 +26,7 @@ class Domain < ActiveRecord::Base
                 url: Proc.new {|d| { controller: 'domains',
                                      action: 'show', id: d}},
                 description: lambda {|d| [d.name, d.project, d.status,
-                                          d.accesses, d.ending_date].
+                                          d.accesses.map(&:key).join(','), d.ending_date].
                                       join(' ')}
 
   safe_attributes 'name', 'status', 'accesses', 'hidden', 'checked',
