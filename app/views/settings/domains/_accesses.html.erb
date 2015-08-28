@@ -1,9 +1,9 @@
 <p>
   <label><%= l(:label_accesses_names) %></label>
-  <%= text_area_tag 'settings[accesses_names]', DomainsSetting.accesses_names, size: '40x3' %>
+  <%= text_area_tag 'settings[accesses_names]', Setting.plugin_redmine_domains[:accesses_names], size: '40x3' %>
 </p>
 
 <p>
   <label><%= l(:label_accesses_keys) %></label>
-  <%= text_area_tag 'settings[accesses_keys]', DomainsSetting.accesses_keys, size: '40x3' %>
+  <%= text_area_tag 'settings[accesses_keys]', Setting.plugin_redmine_domains[:accesses_keys], size: '40x3' %>
 </p>

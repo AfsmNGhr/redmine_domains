@@ -43,13 +43,13 @@ class DomainsSetting < ActiveRecord::Base
   end
 
   def self.accesses_names
-    Setting.plugin_redmine_domains['accesses_names'].
-      to_s.split(',').select{ |n| !n.blank? }.map(&:strip)
+    Setting.plugin_redmine_domains[:accesses_names].
+      to_s.split(', ').select{ |n| !n.blank? }.map(&:strip)
   end
 
   def self.accesses_keys
-    Setting.plugin_redmine_domains['accesses_keys'].
-      to_s.split(',').select{ |k| !k.blank? }.map(&:strip)
+    Setting.plugin_redmine_domains[:accesses_keys].
+      to_s.split(', ').select{ |k| !k.blank? }.map(&:strip)
   end
 
   private

@@ -20,11 +20,11 @@ Redmine::Plugin.register :redmine_domains do
                                         'FTP хост',
                                         'SSH хост',
                                         'Mysql хост',
-                                        'Live Internet' ],
+                                        'Live Internet' ].join(', '),
                       accesses_keys: [ 'cms', 'host',
                                        'ftp', 'ssh',
                                        'mysql',
-                                       'live_internet' ],
+                                       'live_internet' ].join(', '),
                     }, partial: 'settings/domains/domains'
 
   project_module :accesses do
