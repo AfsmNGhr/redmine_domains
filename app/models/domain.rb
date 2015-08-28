@@ -10,7 +10,6 @@ class Domain < ActiveRecord::Base
 
   acts_as_searchable columns: ["#{table_name}.name",
                                "#{table_name}.status",
-                               "#{table_name}.ending_date",
                                "#{Access.table_name}.name",
                                "#{Access.table_name}.key",
                                "#{Access.table_name}.url",
