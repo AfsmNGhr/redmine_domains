@@ -2,6 +2,7 @@
   <div class="contextual">
     <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: params[:id] }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
   </div>
+  <div class="clearfix"></div>
 </h2>
 
 <% unless @accesses.nil? || @accesses.empty? -%>
