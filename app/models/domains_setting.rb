@@ -42,6 +42,10 @@ class DomainsSetting < ActiveRecord::Base
     logger.info "Accesses settings cache cleared." if logger
   end
 
+  def self.accesses
+    self.accesses_keys.zip(self.accesses_names).to_h
+  end
+
   def self.accesses_names
     Setting.plugin_redmine_domains[:accesses_names].
       to_s.split(', ').select{ |n| !n.blank? }.map(&:strip)

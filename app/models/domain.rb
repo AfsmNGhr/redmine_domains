@@ -27,7 +27,7 @@ class Domain < ActiveRecord::Base
                   'author_id', 'ending_date', 'hosting', 'visibility',
                   'project_id', 'custom_field_values', 'custom_fields'
   attr_protected :id
-  validates_presence_of :name
+  validates_presence_of :name, :project_id
   belongs_to :project
   has_many :accesses, dependent: :destroy
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
