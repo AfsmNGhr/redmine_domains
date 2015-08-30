@@ -34,7 +34,7 @@ module DomainsHelper
 
   def is_domains_show?
     route =
-      Rails.application.routes.recognize_path(URI(request.referer).path)
+      Rails.application.routes.recognize_path(URI(request.path))
     if route[:controller] == 'domains' && route[:action] == 'show'
       true
     else

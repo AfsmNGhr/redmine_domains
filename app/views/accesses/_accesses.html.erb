@@ -1,7 +1,7 @@
 <h2>
   <div class="contextual">
     <% if is_domains_show? -%>
-      <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: @domain.project_id }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+      <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: @domain.project.identifier }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
     <% else -%>
       <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: params[:id] }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
     <% end %>
