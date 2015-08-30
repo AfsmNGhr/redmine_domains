@@ -47,7 +47,7 @@ class AccessesController < ApplicationController
       if @access.save
         format.html { redirect_to (params[:continue] ? { action: :new } : @access),
                                   notice: l(:notice_successful_create) }
-        format.js { render (params[:continue] ? { action: :new } : { action: :show } ), format: :js,
+        format.js { redirect_to (params[:continue] ? { action: :new } : { action: :show } ),
                            notice: l(:notice_successful_create) }
       else
         format.html { render action: :new }
@@ -61,7 +61,7 @@ class AccessesController < ApplicationController
       if @access.update_attributes(params[:access])
         format.html { redirect_to @access,
                       notice: l(:notice_successful_update) }
-        format.js { render action: :show, format: :js,
+        format.js { redirect_to action: :show,
                            notice: l(:notice_successful_update) }
       else
         format.html { render action: :edit }
