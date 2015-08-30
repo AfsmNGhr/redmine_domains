@@ -1,6 +1,10 @@
 <h2>
   <div class="contextual">
-    <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: params[:id] }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+    <% if is_domains_show? -%>
+      <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: @domain.project_id }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+    <% else -%>
+      <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: params[:id] }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+    <% end %>
   </div>
   <div class="clearfix"></div>
 </h2>

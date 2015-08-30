@@ -31,4 +31,14 @@ module DomainsHelper
       l(:domain_self_service),
       l(:domain_not_access) ]
   end
+
+  def is_domains_show?
+    route =
+      Rails.application.routes.recognize_path(URI(request.referer).path)
+    if route[:controller] == 'domains' && route[:action] == 'show'
+      true
+    else
+      false
+    end
+  end
 end
