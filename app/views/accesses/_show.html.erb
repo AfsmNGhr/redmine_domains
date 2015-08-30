@@ -9,7 +9,7 @@
     <%= @access.description %>
   </p>
   <% if @access.domain -%>
-    <p><%= link_to @access.domain.name, domain_path(@access.domain), remote: true %></p>
+    <p><%= l(:label_domain) %>: <%= link_to @access.domain.name, domain_path(@access.domain), remote: true %></p>
   <% end %>
   <p><%= l(:field_url) %>: <%= @access.url %></p>
   <p><%= l(:field_login) %>: <%= @access.login %></p>
