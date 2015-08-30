@@ -1,0 +1,10 @@
+<% referer = Rails.application.routes.recognize_path(URI(request.referer).path) -%>
+<% route = Rails.application.routes.recognize_path(URI(request.path)) -%>
+$('#block').html('<%= j render(partial: "#{route[:controller]}/#{route[:action]}") %>');
+window.history.pushState('', "<%= html_title %>", "<%= URI(request.path) %>");
+componentHandler.upgradeAllRegistered();
+<!-- <% unless route[:controller] == referer[:controller] -%> -->
+<!--   <% if display_main_menu?(@project) -%> -->
+<!--     $('#main-menu').html('<%= j render(text: render_main_menu_with_material_and_icons(@project)) %>'); -->
+<!--   <% end %> -->
+<!-- <% end %> -->

@@ -16,27 +16,43 @@ class DomainsController < ApplicationController
   def index
     @domains = Domain.table(params)
     @custom_fields = DomainCustomField.all
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def show
     @accesses = @domain.accesses
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def new
     @domain = Domain.new
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def edit
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def create
     @domain = Domain.new(params[:domain])
     respond_to do |format|
       if @domain.save
-        format.html { redirect_to @domain,
-                      notice: l(:notice_successful_create) }
-        format.js { render action: :show, format: :js,
-                           notice: l(:notice_successful_create) }
+        format.html { redirect_to (params[:continue] ? { action: :new } : @domain),
+                                  notice: l(:notice_successful_create) }
+        format.js { render (params[:continue] ? { action: :new } : { action: :show }), format: :js,
+                            notice: l(:notice_successful_create) }
       else
         format.html { render action: :new }
         format.js

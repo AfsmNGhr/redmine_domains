@@ -13,16 +13,32 @@ class AccessesController < ApplicationController
 
   def index
     @accesses = @project.accesses
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def new
     @access = Access.new
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def edit
+    respond_to do |format|
+      format.html
+      format.js { render template: 'ajax/action' }
+    end
   end
 
   def create
@@ -30,7 +46,7 @@ class AccessesController < ApplicationController
     respond_to do |format|
       if @access.save
         format.html { redirect_to (params[:continue] ? { action: :new } : @access),
-                      notice: l(:notice_successful_create) }
+                                  notice: l(:notice_successful_create) }
         format.js { render (params[:continue] ? { action: :new } : { action: :show } ), format: :js,
                            notice: l(:notice_successful_create) }
       else
