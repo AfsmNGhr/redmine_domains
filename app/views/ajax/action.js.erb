@@ -2,7 +2,9 @@
 $('#block').html(
 '<%= j render(partial: "#{route[:controller]}/#{route[:action]}") %>'
 );
+
 window.history.pushState('', "<%= html_title %>", "<%= URI(request.path) %>");
+
 <% unless URI(request.referer).path =~ %r"#{URI(request.path)}" -%>
   <% if display_main_menu?(@project) -%>
     $('#main-menu').html('<%= j render(text: render_main_menu(@project)) %>');
@@ -11,4 +13,14 @@ window.history.pushState('', "<%= html_title %>", "<%= URI(request.path) %>");
   '<%= j render(text: (render_menu_with_material_and_icons :top_menu if User.current.logged? || !Setting.login_required?)) %>'
   );
 <% end %>
+
+if ($('.ajax-datapicker').size() > 0) {
+<% start_of_week = Setting.start_of_week
+start_of_week = l(:general_first_day_of_week, default: '1') if start_of_week.blank?
+jquery_locale = l('jquery.locale', default: current_language.to_s || 'en')
+%>
+var datepickerOptions = { dateFormat: 'yy-mm-dd', firstDay: "<%= start_of_week %>", showOn: 'button', buttonImageOnly: true, buttonImage: '/images/calendar.png', showButtonPanel: true, showWeek: true, showOtherMonths: true, selectOtherMonths: true, changeMonth: true, changeYear: true, beforeShow: beforeShowDatePicker }
+$.getScript("/javascripts/i18n/datepicker-<%= jquery_locale %>.js");
+}
+
 componentHandler.upgradeAllRegistered();

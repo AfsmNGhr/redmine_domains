@@ -1,6 +1,6 @@
 <%= error_messages_for 'domain' %>
 
-<div class="box">
+<div class="box tabular">
   <p><%= f.text_field :name, :required => true, class: "mdl-textfield__input" %></p>
   <p><%= f.select :project_id, options_from_collection_for_select(Project.visible, :id, :name, @domain.project_id),
 { include_blank:  true, label: :label_project } %></p>
@@ -14,7 +14,7 @@
   </p>
   <p><%= f.check_box :hidden %></p>
   <p><%= f.check_box :checked %></p>
-  <p><%= f.text_field(:ending_date, size: 10, required: @domain.ending_date) %>
+  <p><%= f.text_field(:ending_date, size: 10, required: @domain.ending_date, class: 'ajax-datepicker') %>
     <%= calendar_for('domain_ending_date') %>
   </p>
   <p><%= f.hidden_field :author_id, { value: User.current.id } %></p>

@@ -1,6 +1,6 @@
 <%= error_messages_for 'access' %>
 
-<div class="box">
+<div class="box tabular">
   <p><%= f.select :key, DomainsSetting.accesses.collect { |k,v| [v, k] },  { include_blank: true, label: :field_name },
   { onchange: "$('#access_name').attr('value', $(this).find(':selected').text())" } %>
     <%= f.hidden_field :name, value: '' %>
