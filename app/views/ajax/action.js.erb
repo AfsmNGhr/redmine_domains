@@ -7,6 +7,7 @@ window.history.pushState('', "<%= html_title %>", "<%= URI(request.path) %>");
 
 <% unless URI(request.referer).path =~ %r"#{URI(request.path)}" -%>
   <% if display_main_menu?(@project) -%>
+    $('#header .mdl-layout-title').html('<%= j render(text: page_header_title) %>');
     $('#main-menu').html('<%= j render(text: render_main_menu(@project)) %>');
   <% end %>
   $('#nav-top-menu').html(
