@@ -1,7 +1,7 @@
 module DomainsHelper
   def settings_domains_tabs
-    [ { name: 'accesses', partial: 'settings/domains/accesses',
-        label: :label_access_plural } ]
+    [{ name: 'accesses', partial: 'settings/domains/accesses',
+       label: :label_access_plural }]
   end
 
   def hide_or_show_link(domain)
@@ -27,9 +27,9 @@ module DomainsHelper
   end
 
   def statuses
-    [ l(:domain_service),
-      l(:domain_self_service),
-      l(:domain_not_access) ]
+    [l(:domain_service),
+     l(:domain_self_service),
+     l(:domain_not_access)]
   end
 
   def is_domains_show?

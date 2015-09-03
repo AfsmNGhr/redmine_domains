@@ -15,32 +15,27 @@ Redmine::Plugin.register :redmine_domains do
   version '0.5'
   requires_redmine version_or_higher: '3.0.0'
 
-  settings default: { accesses_names: [ 'Админка CMS',
-                                        'Админка хоста',
-                                        'FTP хост',
-                                        'SSH хост',
-                                        'Mysql хост',
-                                        'Live Internet' ].join(', '),
-                      accesses_keys: [ 'cms', 'host',
-                                       'ftp', 'ssh',
-                                       'mysql',
-                                       'live_internet' ].join(', '),
+  settings default: { accesses_names:
+                        ['Админка CMS',
+                         'Админка хоста',
+                         'FTP хост',
+                         'SSH хост',
+                         'Mysql хост',
+                         'Live Internet'].join(', '),
+                      accesses_keys:
+                        %w(cms host ftp ssh mysql live_internet).join(', '),
                     }, partial: 'settings/domains/domains'
 
   project_module :accesses do
-    permission :view_accesses, { accesses: [ :index, :show ] }
-    permission :add_accesses, { accesses: [ :new, :create ] }
-    permission :edit_accesses, { accesses: [ :edit, :update ] }
+    permission :view_accesses, { accesses: [:index, :show] }
+    permission :add_accesses, { accesses: [:new, :create] }
+    permission :edit_accesses, { accesses: [:edit, :update] }
     permission :manage_accesses, { projects: :settings,
                                    accesses_settings: :save }
-    permission :view_domains, { domains: [ :index, :show ] }
-    permission :add_domains, { domains: [ :new, :create ] }
-    permission :edit_domains, { domains: [ :edit, :update ] }
+    permission :view_domains, { domains: [:index, :show] }
+    permission :add_domains, { domains: [:new, :create] }
+    permission :edit_domains, { domains: [:edit, :update] }
   end
-
-  menu :admin_menu, :domains, { controller: 'settings', action: 'plugin',
-                                    id: 'redmine_domains' },
-       caption: :label_domain_plural, after: :roles
 
   menu :project_menu, :accesses, { controller: 'accesses', action: 'index'},
        caption: :label_access_plural, html: { 'data-remote' => 'true' }

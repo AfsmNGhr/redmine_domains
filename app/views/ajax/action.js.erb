@@ -1,23 +1,15 @@
 <% route = Rails.application.routes.recognize_path(URI(request.path)) -%>
 
- if( String('<%= j render(partial: "#{route[:controller]}/#{route[:action]}") %>').match(/\.datepicker\(datepickerOptions\)/) ){
-
+if( String('<%= j render(partial: "#{route[:controller]}/#{route[:action]}") %>').match(/\.datepicker\(datepickerOptions\)/) ) {
 <% start_of_week = Setting.start_of_week
 start_of_week = l(:general_first_day_of_week, default: '1') if start_of_week.blank?
 jquery_locale = l('jquery.locale', default: current_language.to_s || 'en')
 %>
 var datepickerOptions = { dateFormat: 'yy-mm-dd', firstDay: "<%= start_of_week %>", showOn: 'button', buttonImageOnly: true, buttonImage: '/images/calendar.png', showButtonPanel: true, showWeek: true, showOtherMonths: true, selectOtherMonths: true, changeMonth: true, changeYear: true, beforeShow: beforeShowDatePicker }
 $.getScript("/javascripts/i18n/datepicker-<%= jquery_locale %>.js");
-
 }
 
-
-
-$('#block').html(
-'<%= j render(partial: "#{route[:controller]}/#{route[:action]}") %>'
-);
-
-//window.history.pushState('', "<%= html_title %>", "<%= URI(request.path) %>");
+$('#block').html('<%= j render(partial: "#{route[:controller]}/#{route[:action]}") %>');
 
 <% unless URI(request.referer).path =~ %r"#{URI(request.path)}" -%>
   <% if display_main_menu?(@project) -%>
@@ -29,13 +21,5 @@ $('#block').html(
   );
 <% end %>
 
-/*if ($('.ajax-datapicker').size() > 0) {
-<% start_of_week = Setting.start_of_week
-start_of_week = l(:general_first_day_of_week, default: '1') if start_of_week.blank?
-jquery_locale = l('jquery.locale', default: current_language.to_s || 'en')
-%>
-var datepickerOptions = { dateFormat: 'yy-mm-dd', firstDay: "<%= start_of_week %>", showOn: 'button', buttonImageOnly: true, buttonImage: '/images/calendar.png', showButtonPanel: true, showWeek: true, showOtherMonths: true, selectOtherMonths: true, changeMonth: true, changeYear: true, beforeShow: beforeShowDatePicker }
-$.getScript("/i18n/datepicker-<%= jquery_locale %>.js");
-}
-*/
+window.history.pushState('', "<%= html_title %>", "<%= URI(request.path) %>");
 componentHandler.upgradeAllRegistered();

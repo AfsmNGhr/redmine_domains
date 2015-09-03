@@ -4,7 +4,7 @@ class DomainsSetting < ActiveRecord::Base
   belongs_to :project
   attr_accessible :name, :value, :project_id
   cattr_accessor :settings
-  validates_uniqueness_of :name, scope: [ :project_id ]
+  validates_uniqueness_of :name, scope: [:project_id]
 
   @domains_cached_settings = {}
   @domains_cached_cleared_at = Time.now
@@ -19,7 +19,7 @@ class DomainsSetting < ActiveRecord::Base
   def self.[]=(name, project_id, v)
     project_id = project_id.id if project_id.is_a?(Project)
     setting = find_or_default(name, project_id)
-    setting.value = (v ? v : "")
+    setting.value = (v ? v : '')
     @domains_cached_settings[hk(name, project_id)] = nil
     setting.save
     setting.value
@@ -39,21 +39,21 @@ class DomainsSetting < ActiveRecord::Base
   def self.clear_cache
     @domains_cached_settings.clear
     @domains_cached_cleared_at = Time.now
-    logger.info "Accesses settings cache cleared." if logger
+    logger.info 'Accesses settings cache cleared.' if logger
   end
 
   def self.accesses
-    self.accesses_keys.zip(self.accesses_names).to_h
+    accesses_keys.zip(accesses_names).to_h
   end
 
   def self.accesses_names
     Setting.plugin_redmine_domains[:accesses_names].
-      to_s.split(', ').select{ |n| !n.blank? }.map(&:strip)
+      to_s.split(', ').select { |n| !n.blank? }.map(&:strip)
   end
 
   def self.accesses_keys
     Setting.plugin_redmine_domains[:accesses_keys].
-      to_s.split(', ').select{ |k| !k.blank? }.map(&:strip)
+      to_s.split(', ').select { |k| !k.blank? }.map(&:strip)
   end
 
   private
