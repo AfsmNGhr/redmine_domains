@@ -51,7 +51,7 @@ class DomainsController < ApplicationController
       if @domain.save
         format.html { redirect_to (params[:continue] ? { action: :new } : @domain),
                                   notice: l(:notice_successful_create) }
-        format.js { redirect_to (params[:continue] ? { action: :new } : @domain),
+        format.js { redirect_to (params[:continue] ? { action: :new } : { action: :show }),
                             notice: l(:notice_successful_create) }
       else
         format.html { render action: :new }

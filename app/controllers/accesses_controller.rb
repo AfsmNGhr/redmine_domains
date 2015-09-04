@@ -1,8 +1,7 @@
 class AccessesController < ApplicationController
   unloadable
-  default_search_scope :accesses
   model_object Access
-  before_filter :find_model_object, except: [ :index, :new, :create ]
+  before_filter :find_model_object, except: [:index, :new, :create]
   before_filter :find_project, only: :index
 
   after_filter only: [:create, :edit, :update] do |controller|
@@ -47,7 +46,7 @@ class AccessesController < ApplicationController
       if @access.save
         format.html { redirect_to (params[:continue] ? { action: :new } : @access),
                                   notice: l(:notice_successful_create) }
-        format.js { redirect_to (params[:continue] ? { action: :new } : @accesss),
+        format.js { redirect_to (params[:continue] ? { action: :new } : { action: :show }),
                            notice: l(:notice_successful_create) }
       else
         format.html { render action: :new }
