@@ -3,7 +3,7 @@ class DomainsController < ApplicationController
   default_search_scope :domains
   model_object Domain
   before_filter :find_model_object,
-                except: [ :index, :new, :create, :context_menu ]
+                except: [:index, :new, :create, :context_menu]
 
   after_filter only: [:create, :edit, :update] do |controller|
     if controller.request.post?

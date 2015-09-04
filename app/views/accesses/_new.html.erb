@@ -1,5 +1,5 @@
 <h2>
-  <%= link_to l(:label_access_plural), project_accesses_path(Project.find(params[:project_id])), remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
+  <%= link_to l(:label_access_plural), project_accesses_path(Project.find(params[:project_id].nil? ? Project.visible.last.id : params[:project_id])), remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
   <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--purple-400 mdl-js-ripple-effect'>
     <%=l(:label_access_new) %>
   </button>
