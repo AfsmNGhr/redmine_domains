@@ -27,6 +27,7 @@ ru:
   tab_domain_hidden: 'Cкрытые'
 
   project_module_accesses: 'Доступы'
+  enumeration_access_categories: 'Категории доступов'
 
   permission_view_accesses: 'Просмотр доступов'
   permission_add_accesses: 'Добавление доступов'

@@ -70,9 +70,9 @@ id: domain, params: { hosting: params[:hosting] } }, remote: true %>
             <td class="mdl-data-table__cell--non-numeric">
               <% unless domain.accesses.nil? -%>
                 <% if domain.project -%>
-                  <%= link_to domain.accesses.map(&:key).join(', '), project_accesses_path(domain.project), remote: true %>
+                  <%= link_to domain.accesses.includes(:category).map(&:category).join(', '), project_accesses_path(domain.project), remote: true %>
                 <% else -%>
-                  <%= link_to domain.accesses.map(&:key).join(', '), domain_path(domain), remote: true %>
+                  <%= link_to domain.accesses.includes(:category).map(&:category).join(', '), domain_path(domain), remote: true %>
                 <% end %>
               <% end %>
             </td>

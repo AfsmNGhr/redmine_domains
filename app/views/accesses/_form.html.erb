@@ -1,10 +1,7 @@
 <%= error_messages_for 'access' %>
 
 <div class="box tabular">
-  <p><%= f.select :key, DomainsSetting.accesses.collect { |k,v| [v, k] },  { include_blank: true, label: :field_name },
-  { onchange: "$('#access_name').attr('value', $(this).find(':selected').text())" } %>
-    <%= f.hidden_field :name, value: '' %>
-  </p>
+  <p><%= f.select :category_id, AccessCategory.active.collect {|c| [c.name, c.id]} %></p>
   <p><%= f.select :domain_id, options_from_collection_for_select(Domain.visible, :id, :name, @access.domain_id),
 { include_blank: true, label: :label_domain } %></p>
   <p><%= f.text_field :url, class: "mdl-textfield__input" %></p>

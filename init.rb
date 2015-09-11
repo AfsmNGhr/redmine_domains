@@ -3,6 +3,7 @@ require 'redmine'
 
 ActionDispatch::Callbacks.to_prepare do
   require_dependency 'redmine_domains/patches/project_patch'
+  require_dependency 'redmine_domains/patches/enumeration_patch'
   require_dependency 'redmine_domains/patches/custom_field_helper_patch'
   ActionView::Base.send(:include, DomainsHelper, AccessesHelper)
 end
@@ -12,19 +13,8 @@ Redmine::Plugin.register :redmine_domains do
   author 'Ermolaev Alexsey'
   description 'Add domains and their accesses for projects'
   author_url 'afay.zangetsu@gmail.com'
-  version '0.5'
+  version '0.6'
   requires_redmine version_or_higher: '3.0.0'
-
-  settings default: { accesses_names:
-                        ['Админка CMS',
-                         'Админка хоста',
-                         'FTP хост',
-                         'SSH хост',
-                         'Mysql хост',
-                         'Live Internet'].join(', '),
-                      accesses_keys:
-                        %w(cms host ftp ssh mysql live_internet).join(', '),
-                    }, partial: 'settings/domains/domains'
 
   project_module :accesses do
     permission :view_accesses, { accesses: [:index, :show] }

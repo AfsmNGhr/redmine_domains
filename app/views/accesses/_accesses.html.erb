@@ -35,7 +35,7 @@
         <% @accesses.each do |access| %>
           <tr>
             <td class="mdl-data-table__cell--non-numeric">
-              <%= link_to access.name, access_path(id: access.id), remote: true %>
+              <%= link_to access.category, access_path(id: access.id), remote: true %>
             </td>
             <td class="mdl-data-table__cell--non-numeric">
               <%= access.url %>
