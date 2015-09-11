@@ -11,7 +11,7 @@ class AccessesController < ApplicationController
   end
 
   def index
-    @accesses = @project.accesses
+    @accesses = @project.accesses.includes(:category)
     respond_to do |format|
       format.html
       format.js { render template: 'ajax/action' }
@@ -46,7 +46,7 @@ class AccessesController < ApplicationController
       if @access.save
         format.html { redirect_to (params[:continue] ? { action: :new } : @access),
                                   notice: l(:notice_successful_create) }
-        format.js { redirect_to (params[:continue] ? { action: :new } : { action: :show }),
+        format.js { redirect_to (params[:continue] ? { action: :new } : access_path(@access)),
                            notice: l(:notice_successful_create) }
       else
         format.html { render action: :new }

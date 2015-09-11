@@ -19,9 +19,6 @@ ru:
   label_access_edit: 'Редактировать доступ'
   label_access_plural: 'Доступы'
 
-  label_accesses_names: 'Наименование доступов'
-  label_accesses_keys: 'Ключи доступов'
-
   tab_domain_all: 'Все'
   tab_domain_month: 'За текущий месяц'
   tab_domain_hidden: 'Cкрытые'
@@ -35,7 +32,6 @@ ru:
   permission_view_domains: 'Просмотр доменов'
   permission_add_domains: 'Добавление доменов'
   permission_edit_domains: 'Редактирование доменов'
-  permission_manage_accesses: 'Управление доступами'
 
   field_access: 'Доступ'
   field_hosting: 'Хостинг'

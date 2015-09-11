@@ -20,8 +20,6 @@ Redmine::Plugin.register :redmine_domains do
     permission :view_accesses, { accesses: [:index, :show] }
     permission :add_accesses, { accesses: [:new, :create] }
     permission :edit_accesses, { accesses: [:edit, :update] }
-    permission :manage_accesses, { projects: :settings,
-                                   accesses_settings: :save }
     permission :view_domains, { domains: [:index, :show] }
     permission :add_domains, { domains: [:new, :create] }
     permission :edit_domains, { domains: [:edit, :update] }
