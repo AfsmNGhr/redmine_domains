@@ -24,7 +24,8 @@ class Domain < ActiveRecord::Base
                 url: Proc.new {|d| { controller: 'domains',
                                      action: 'show', id: d}},
                 description: lambda { |d| [d.name, d.project, d.status,
-                                           d.accesses.map(&:key).join(', '),
+                                           d.accesses.include(:category).
+                                             map(&:category).join(', '),
                                            d.ending_date].join(' ') }
 
   safe_attributes 'name', 'status', 'accesses', 'hidden', 'checked',
