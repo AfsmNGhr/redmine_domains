@@ -1,1 +1,58 @@
-_accesses.html.erb
+<h2>
+  <div class="contextual">
+    <% if is_domains_show? -%>
+      <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: @domain.project.identifier }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+    <% else -%>
+      <%= link_to l(:label_access_new), { controller: 'accesses', action: 'new', params: { project_id: params[:id] }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+    <% end %>
+  </div>
+  <div class="clearfix"></div>
+</h2>
+
+<% unless @accesses.nil? || @accesses.empty? -%>
+  <div class="autoscroll">
+    <table class="list accesses mdl-data-table mdl-shadow--1dp">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_access) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_url) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_login) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_password) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_description) %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @accesses.each do |access| %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to access.category, access_path(id: access.id), remote: true %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= access.url %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= access.login %>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= access.password %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= access.description %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else -%>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

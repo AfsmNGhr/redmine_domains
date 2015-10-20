@@ -1,1 +1,101 @@
-_domains.html.erb
+<h2>
+  <div class="contextual">
+    <% if params[:hosting] == '1' -%>
+      <%= link_to l(:label_hosting_new), { controller: 'domains', action: 'new', params: { hosting: '1' }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+    <% else -%>
+      <%= link_to l(:label_domain_new), { controller: 'domains', action: 'new', params: { hosting: '0' }, remote: true }, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color-text--white' %>
+    <% end %>
+  </div>
+
+  <%= link_to l(:tab_domain_all), params.merge({month: '0', hosting: params[:hosting], hidden: '0'}), remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-400 mdl-js-ripple-effect' %>
+  <%= link_to l(:tab_domain_month), params.merge({month: '1', hosting: params[:hosting], hidden: '0'}), remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--purple-400 mdl-js-ripple-effect mdl-color-text--white' %>
+  <%= link_to l(:tab_domain_hidden), params.merge({hidden: '1', hosting: params[:hosting], month: '0'}), remote: true, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--indigo-400 mdl-js-ripple-effect mdl-color-text--white' %>
+</h2>
+
+<% unless @domains.nil? -%>
+  <div class="autoscroll">
+    <table class="list domains mdl-data-table mdl-shadow--1dp">
+      <thead>
+        <tr>
+          <th class="hide-when-print mdl-data-table__cell--non-numeric">
+            <%= image_tag('toggle_check.png') %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <% if params[:hosting] == '1' -%>
+              <%= l(:label_hosting) %>
+            <% else -%>
+              <%= l(:label_domain) %>
+            <% end %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:label_project) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_status) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_accesses) %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:field_ending_date) %>
+          </th>
+          <% unless @custom_fields.nil? -%>
+            <% @custom_fields.each do |field| -%>
+              <th class="mdl-data-table__cell--non-numeric">
+                <%= field.name %>
+              </th>
+            <% end %>
+          <% end %>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= l(:label_activity) %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @domains.each do |domain| %>
+          <tr id="domain-<%= domain.id %>" class="hascontextmenu">
+            <td class="hide-when-print mdl-data-table__cell--non-numeric"><%= check_box_tag("ids[]", domain.id, false, :id => nil) %></td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= link_to domain.name, { controller: 'domains', action: 'show',
+id: domain, params: { hosting: params[:hosting] } }, remote: true %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <% if domain.project.present? -%>
+                <%= link_to domain.project.name, project_path(domain.project) %>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= domain.status %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <% unless domain.accesses.nil? -%>
+                <% if domain.project -%>
+                  <%= link_to domain.accesses.includes(:category).map(&:category).join(', '), project_accesses_path(domain.project), remote: true %>
+                <% else -%>
+                  <%= link_to domain.accesses.includes(:category).map(&:category).join(', '), domain_path(domain), remote: true %>
+                <% end %>
+              <% end %>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= format_date(domain.ending_date) %>
+            </td>
+            <% unless domain.custom_field_values.nil? -%>
+              <% domain.custom_field_values.each do |custom_value| -%>
+                <td class="mdl-data-table__cell--non-numeric">
+                  <%=h show_value(custom_value) %>
+                </td>
+              <% end %>
+            <% end %>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= hide_or_show_link(domain) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= context_menu url_for( { controller: 'domains', action: 'context_menu', params: params } ) %>
+<% else -%>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
